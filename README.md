@@ -21,9 +21,58 @@ Queuing are the most frequently encountered problems in everyday life. For examp
 
 
 ## Program
+```
+import math
 
+# Input from user
+inter_arrival_time = float(input("Enter mean inter-arrival time (seconds): "))
+service_time = float(input("Enter mean service time per server (seconds): "))
+c = int(input("Enter number of servers: "))
+
+# Arrival and service rates
+lam = 1 / inter_arrival_time
+mu = 1 / service_time
+
+# Traffic intensity
+rho = lam / (c * mu)
+
+if rho >= 1:
+    print("\nSystem is unstable (ρ >= 1)")
+else:
+    # Calculate P0
+    summation = 0
+    for n in range(c):
+        summation += ((lam / mu) ** n) / math.factorial(n)
+
+    last_term = (((lam / mu) ** c) / math.factorial(c)) * (1 / (1 - rho))
+
+    P0 = 1 / (summation + last_term)
+
+    # Calculate Lq
+    Lq = (
+        (((lam / mu) ** c) * rho)
+        / (math.factorial(c) * ((1 - rho) ** 2))
+    ) * P0
+
+    # Calculate Ls
+    Ls = Lq + (lam / mu)
+
+    # Calculate waiting times
+    Wq = Lq / lam
+    Ws = Ls / lam
+
+    # Output
+    print("\n----- Results -----")
+    print(f"Traffic Intensity (ρ) = {rho:.4f}")
+    print(f"Average number in queue (Lq) = {Lq:.6f}")
+    print(f"Average number in system (Ls) = {Ls:.6f}")
+    print(f"Average waiting time in queue (Wq) = {Wq:.6f} seconds")
+    print(f"Average waiting time in system (Ws) = {Ws:.6f} seconds")
+```
 
 ## Output :
+<img width="1245" height="555" alt="image" src="https://github.com/user-attachments/assets/6290954f-0fde-45a1-b81f-38a8c1a92903" />
+
 
 ## Result : 
 
