@@ -19,9 +19,7 @@ Queuing are the most frequently encountered problems in everyday life. For examp
 
 
 
-## Experiment:
-<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/9c300255-5baa-4f7c-a2f2-d15535454e63" />
-<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/6a3926aa-3358-48d0-be51-529bb8723828" />
+
 
 
 ## Program
