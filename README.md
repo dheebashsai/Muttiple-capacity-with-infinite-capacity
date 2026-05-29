@@ -1,4 +1,6 @@
 # Multiple server with infinite capacity - (M/M/c):(oo/FIFO)
+# Name: Dheebash Sai R
+# Reg.no: 212224040075
 ## Aim :
 To find (a) average number of materials in the system (b) average number of materials in the conveyor (c) waiting time of each material in the system (d) waiting time of each material in the conveyor, if the arrival  of materials follow poisson process with the mean interval time 10 seconds, serivice time of two lathe machine follow exponential distribution with mean serice time 1 second and average service time of robot is 7seconds.
 
@@ -18,61 +20,55 @@ Queuing are the most frequently encountered problems in everyday life. For examp
 
 
 ## Experiment:
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/9c300255-5baa-4f7c-a2f2-d15535454e63" />
+<img width="1280" height="720" alt="image" src="https://github.com/user-attachments/assets/6a3926aa-3358-48d0-be51-529bb8723828" />
 
 
 ## Program
-```
-import math
-
-# Input from user
-inter_arrival_time = float(input("Enter mean inter-arrival time (seconds): "))
-service_time = float(input("Enter mean service time per server (seconds): "))
-c = int(input("Enter number of servers: "))
-
-# Arrival and service rates
-lam = 1 / inter_arrival_time
-mu = 1 / service_time
-
-# Traffic intensity
-rho = lam / (c * mu)
-
-if rho >= 1:
-    print("\nSystem is unstable (ρ >= 1)")
-else:
-    # Calculate P0
-    summation = 0
-    for n in range(c):
-        summation += ((lam / mu) ** n) / math.factorial(n)
-
-    last_term = (((lam / mu) ** c) / math.factorial(c)) * (1 / (1 - rho))
-
-    P0 = 1 / (summation + last_term)
-
-    # Calculate Lq
-    Lq = (
-        (((lam / mu) ** c) * rho)
-        / (math.factorial(c) * ((1 - rho) ** 2))
-    ) * P0
-
-    # Calculate Ls
-    Ls = Lq + (lam / mu)
-
-    # Calculate waiting times
-    Wq = Lq / lam
-    Ws = Ls / lam
-
-    # Output
-    print("\n----- Results -----")
-    print(f"Traffic Intensity (ρ) = {rho:.4f}")
-    print(f"Average number in queue (Lq) = {Lq:.6f}")
-    print(f"Average number in system (Ls) = {Ls:.6f}")
-    print(f"Average waiting time in queue (Wq) = {Wq:.6f} seconds")
-    print(f"Average waiting time in system (Ws) = {Ws:.6f} seconds")
+```py
+import math 
+ 
+arr_time_input = '' 
+while not arr_time_input.strip(): # Loop until a non-empty input is received 
+    arr_time_input = input("Enter the mean inter arrival time of objects from feeder (in secs):") 
+    if not arr_time_input.strip(): 
+        print("Input cannot be empty. Please enter a value.") 
+ 
+arr_time = float(arr_time_input) 
+ 
+ser_time=float(input("Enter the mean inter service time of lathe machine (in secs):")) 
+Robot_time=float(input("Enter the Additional time taken for the robot (in secs):")) 
+c=int(input("Number of service centres:")) 
+lam=1/arr_time 
+mu=1/(ser_time+Robot_time) 
+print("------------------------------------------------") 
+print("Multiple Server with infinite capacity- (M/M/c):(00/FIFO)") 
+print("----------------------------------------------------") 
+print("The mean arrival rate per second: %0.2f" %lam) 
+print("The mean service rate per second: %0.2f"%mu) 
+rho=lam/(c*mu) 
+sum=(lam/mu)**c*(1/(1-rho))/math.factorial(c) 
+for i in range(0,c): 
+    sum=sum+(lam/mu)**i/math.factorial(i) 
+P0=1/sum 
+if(rho<1): 
+    Lq=(P0/math.factorial(c))*(1/c)*(lam/mu)**(c+1)/(1-rho)**2 
+    Ls=Lq+lam/mu 
+    Ws=Ls/lam 
+    Wq=Lq/lam 
+    print("Average number of objects in the system: %0.2f"%Ls) 
+    print("Average numner of objects in the conveyor: %0.2f"%Lq) 
+    print("Average waiting time of an object in the system: %0.2f secs"%Ws) 
+    print("Average waiting time of an object in the conveyor: %0.2f secs"%Ws) 
+    print("Probability that the system is busy: %0.2f" %(rho)) 
+    print("Probability that the system is empty:%0.2f "%(1-rho)) 
+else: 
+    print("Warning! Objects overflow will happen in the conveyor") 
+print("-----------------------------------------------------")
 ```
 
 ## Output :
-<img width="1245" height="555" alt="image" src="https://github.com/user-attachments/assets/6290954f-0fde-45a1-b81f-38a8c1a92903" />
-
+<img width="760" height="363" alt="image" src="https://github.com/user-attachments/assets/449e51e3-9ab5-4864-834a-9093866cf785" />
 
 ## Result : 
-
+The average number of material in the system and in the conveyor and waiting are successfully found.
